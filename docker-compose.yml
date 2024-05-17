@@ -1,0 +1,22 @@
+version: '3.3'
+
+services:
+  authelia:
+    image: authelia/authelia
+    container_name: authelia
+    volumes:
+      - ./config:/config
+      - ./log:/var/log
+    networks:
+      - ${NETWORK_NAME}
+    expose:
+      - 9091
+    restart: unless-stopped
+    healthcheck:
+      disable: true
+    environment:
+      - TZ=Europe/Berlin
+
+networks:
+  ${NETWORK_NAME}:
+    external: true
