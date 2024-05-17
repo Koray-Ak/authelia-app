@@ -17,6 +17,19 @@ services:
     environment:
       - TZ=Europe/Berlin
 
+  proxy:
+    hostname: proxy_authelia
+    image: lscr.io/linuxserver/nginx:latest
+    container_name: proxy_authelia
+    ports:
+      - "443:443"
+      - "80:80"
+    volumes:
+      - ./nginx-config:/config
+      - ./letsencrypt:/etc/letsencrypt
+    networks:
+      - ${NETWORK_NAME}
+
 networks:
   ${NETWORK_NAME}:
     external: true
